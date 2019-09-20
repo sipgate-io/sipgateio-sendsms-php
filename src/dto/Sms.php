@@ -2,9 +2,8 @@
 
 namespace Sipgate\Io\Example\Sendsms\Dto;
 
-use Tightenco\Collect\Contracts\Support\Arrayable;
-
-class Sms implements Arrayable {
+class Sms
+{
     protected $smsId;
     protected $message;
     protected $recipient;
@@ -18,18 +17,13 @@ class Sms implements Arrayable {
         $this->sendAt = $sendAt;
     }
 
-    /**
-     * Get the instance as an array.
-     *
-     * @return array
-     */
     public function toArray()
     {
         return [
-            'smsId' => $this->smsId,
-            'message' => $this->message,
-            'recipient' => $this->recipient,
-            'sendAt' => $this->sendAt
+            "smsId" => $this->smsId,
+            "message" => $this->message,
+            "recipient" => $this->recipient,
+            "sendAt" => $this->sendAt
         ];
     }
 }

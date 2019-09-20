@@ -2,7 +2,7 @@
 
 # sipgate.io php send sms example
 
-To demonstrate how to send an SMS, we queried the `/sessions/sms` endpoint of the sipgate REST API.
+To demonstrate how to send a SMS, we queried the `/sessions/sms` endpoint of the sipgate REST API.
 
 For further information regarding the sipgate REST API please visit https://api.sipgate.com/v2/doc
 
@@ -11,7 +11,7 @@ For further information regarding the sipgate REST API please visit https://api.
 -   [composer](https://getcomposer.org)
 -   php >= 7.0
 
-### How To Use
+### How to use
 
 Navigate to the project's root directory.
 
@@ -42,10 +42,9 @@ The `smsId` uniquely identifies the extension from which you wish to send your m
 > $client->sendAt($message, $recipient, $smsId, time() + 60);
 > ```
 >
-> **Note:** The numbering of the months starts from 0 for January to 11 for December. [Calendar documentation](https://docs.oracle.com/javase/7/docs/api/java/util/Calendar.html)
 > **Note:** The `sendAt` property in the `SMS` object is a [Unix timestamp](https://www.unixtimestamp.com/).
 
-### Run the application:
+### Run the application
 
 Install dependencies
 
@@ -59,7 +58,7 @@ Run the application:
 $ php -f src/SendSms.php
 ```
 
-##### How It Works
+### How it works
 
 The sipgate REST API is available under the following base URL:
 
@@ -71,14 +70,14 @@ The API expects request data in JSON format. Thus the `Content-Type` header need
 
 ```php
 protected function send(Sms $sms): ZttpResponse
-    {
-        return Zttp::withHeaders([
-                "Accept" => "application/json",
-                "Content-Type" => "application/json"
-            ])
-            ->withBasicAuth($this->username, $this->password)
-            ->post(self::$BASE_URL . "sessions/sms", $sms->toArray());
-    }
+{
+    return Zttp::withHeaders([
+            "Accept" => "application/json",
+            "Content-Type" => "application/json"
+        ])
+        ->withBasicAuth($this->username, $this->password)
+        ->post(self::$BASE_URL . "sessions/sms", $sms->toArray());
+}
 ```
 
 The request body contains the `SMS` object, which has four fields: `smsId`, `recipient`, `message` and an optional `sendAt` specified above.
@@ -97,13 +96,15 @@ class Sms implements Arrayable {
         $this->recipient = $recipient;
         $this->sendAt = $sendAt;
     }
-    …
+
+    ...
+
 }
 ```
 
-We use the java package 'Zttp' for request generation and execution. The `post` method takes the request URL and the requests body payload as arguments. Headers and authorization header  are generated from `withHeaders` and `withBasicAuth` methods respectively. The request URL consists of the base URL defined above and the endpoint `/sessions/sms`. The method `withBasicAuth` from the 'Zttp' package takes credentials and generates the required Basic Auth header (for more information on Basic Auth see our [code example](https://github.com/sipgate-io/sipgateio-basicauth-java)).
+We use the package `Zttp` for request generation and execution. The `post` method takes the request URL and the requests body payload as arguments. Headers and authorization header  are generated from `withHeaders` and `withBasicAuth` methods respectively. The request URL consists of the base URL defined above and the endpoint `/sessions/sms`. The method `withBasicAuth` from the `Zttp` package takes credentials and generates the required Basic Auth header (for more information on Basic Auth see our [code example](https://github.com/sipgate-io/sipgateio-basicauth-java)).
 
-> If OAuth should be used for `Authorization` instead of Basic Auth we do not use the `.basicAuth(username, password)` mehthod. Instead we set the authorization header to `Bearer` followed by a space and the access token: `.header("Authorization", "Bearer " + accessToken)`. For an example application interacting with the sipgate API using OAuth see our [sipgate.io Java Oauth example](https://github.com/sipgate-io/sipgateio-oauth-java).
+> If OAuth should be used for `Authorization` instead of Basic Auth we do not use the `withBasicAuth(username, password)` method. Instead we set the authorization header to `Bearer` followed by a space and the access token: `Zttp::withHeaders(["Authorization" => "Bearer " . accessToken])`. For an example application interacting with the sipgate API using OAuth see our [sipgate.io Java Oauth example](https://github.com/sipgate-io/sipgateio-oauth-java).
 
 #### Send SMS with custom sender number
 
