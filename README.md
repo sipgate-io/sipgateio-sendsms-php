@@ -151,7 +151,6 @@ Possible reasons are:
 
 ### Related
 
-- [unirest documentation](http://unirest.io/java.html)
 - [sipgate team FAQ (DE)](https://teamhelp.sipgate.de/hc/de)
 - [sipgate basic FAQ (DE)](https://basicsupport.sipgate.de/hc/de)
 
