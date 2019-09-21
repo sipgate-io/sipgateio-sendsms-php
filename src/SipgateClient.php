@@ -36,9 +36,9 @@ class SipgateClient
     protected function send(Sms $sms): ZttpResponse
     {
         return Zttp::withHeaders([
-            "Accept" => "application/json",
-            "Content-Type" => "application/json"
-        ])
+                "Accept" => "application/json",
+                "Content-Type" => "application/json"
+            ])
             ->withBasicAuth($this->username, $this->password)
             ->post(self::$BASE_URL."/sessions/sms", $sms->toArray());
     }

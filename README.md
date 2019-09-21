@@ -36,7 +36,7 @@ $recipient = "RECIPIENT_PHONE_NUMBER";
 The `smsId` uniquely identifies the extension from which you wish to send your message. Further explanation is given in the section [Web SMS Extensions](#web-sms-extensions).
 
 > **Optional:**
-> In order to send a delayed message uncomment the following lines in [SendSms.php](./src/SendSms.php) and set the desired date and time in the future (up to one month):
+> In order to send a delayed message uncomment the following line in [SendSms.php](./src/SendSms.php) and set the desired date and time in the future (up to one month):
 >
 > ```php
 > $client->sendAt($message, $recipient, $smsId, time() + 60);
@@ -83,7 +83,7 @@ protected function send(Sms $sms): ZttpResponse
 The request body contains the `SMS` object, which has four fields: `smsId`, `recipient`, `message` and an optional `sendAt` specified above.
 
 ```php
-class Sms implements Arrayable {
+class Sms {
     protected $smsId;
     protected $message;
     protected $recipient;
