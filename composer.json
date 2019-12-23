@@ -1,12 +1,12 @@
 {
   "name": "sipgate/sipgateio-sendsms-php",
-  "description": "Code example to demonstrate how to send an SMS via sipgate REST API",
+  "description": "A demonstration of how to send an SMS via sipgate.io",
   "minimum-stability": "stable",
   "license": "unlicense",
   "authors": [
     {
-      "name": "Simon Kubiak",
-      "email": "kubiak@sipgate.de"
+      "name": "sipgate.io Team",
+      "email": "io-team@sipgate.de"
     }
   ],
   "autoload": {
