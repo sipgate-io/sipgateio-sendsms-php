@@ -1,8 +1,8 @@
 <?php
 
-namespace Sipgate\Io\Example\Sendsms;
+namespace Sipgate\Io\Example\SendSms;
 
-use Sipgate\Io\Example\Sendsms\Dto\Sms;
+use Sipgate\Io\Example\SendSms\Dto\Sms;
 use Zttp\Zttp;
 use Zttp\ZttpResponse;
 
@@ -10,13 +10,13 @@ class SipgateClient
 {
     protected static $BASE_URL = "https://api.sipgate.com/v2";
 
-    protected $username;
-    protected $password;
+    protected $tokenId;
+    protected $token;
 
-    public function __construct(string $username, string $password)
+    public function __construct(string $tokenId, string $token)
     {
-        $this->username = $username;
-        $this->password = $password;
+        $this->tokenId = $tokenId;
+        $this->token = $token;
     }
 
     public function sendNow($message, $recipient, $smsId): ZttpResponse
@@ -39,7 +39,7 @@ class SipgateClient
                 "Accept" => "application/json",
                 "Content-Type" => "application/json"
             ])
-            ->withBasicAuth($this->username, $this->password)
+            ->withBasicAuth($this->tokenId, $this->token)
             ->post(self::$BASE_URL."/sessions/sms", $sms->toArray());
     }
 }

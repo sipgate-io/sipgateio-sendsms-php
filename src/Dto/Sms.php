@@ -1,6 +1,6 @@
 <?php
 
-namespace Sipgate\Io\Example\Sendsms\Dto;
+namespace Sipgate\Io\Example\SendSms\Dto;
 
 class Sms
 {

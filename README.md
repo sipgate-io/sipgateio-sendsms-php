@@ -8,8 +8,8 @@ For further information regarding the sipgate REST API please visit https://api.
 
 ### Prerequisites
 
--   [composer](https://getcomposer.org)
--   php >= 7.0
+- [composer](https://getcomposer.org)
+- php >= 7.0
 
 ### How to use
 
@@ -24,8 +24,8 @@ $ composer install
 In order to run the code you have to set the following variables in [SendSms.php](./src/SendSms.php):
 
 ```php
-$username = "YOUR_SIPGATE_EMAIL";
-$password = "YOUR_SIPGATE_PASSWORD";
+$tokenId = "YOUR_SIPGATE_TOKEN_ID";
+$token = "YOUR_SIPGATE_TOKEN";
 
 $smsId = "YOUR_SIPGATE_SMS_EXTENSION";
 
@@ -75,7 +75,7 @@ protected function send(Sms $sms): ZttpResponse
             "Accept" => "application/json",
             "Content-Type" => "application/json"
         ])
-        ->withBasicAuth($this->username, $this->password)
+        ->withBasicAuth($this->tokenId, $this->token)
         ->post(self::$BASE_URL . "sessions/sms", $sms->toArray());
 }
 ```
@@ -102,9 +102,9 @@ class Sms {
 }
 ```
 
-We use the package `Zttp` for request generation and execution. The `post` method takes the request URL and the requests body payload as arguments. Headers and authorization header  are generated from `withHeaders` and `withBasicAuth` methods respectively. The request URL consists of the base URL defined above and the endpoint `/sessions/sms`. The method `withBasicAuth` from the `Zttp` package takes credentials and generates the required Basic Auth header (for more information on Basic Auth see our [code example](https://github.com/sipgate-io/sipgateio-basicauth-java)).
+We use the package `Zttp` for request generation and execution. The `post` method takes the request URL and the requests body payload as arguments. Headers and authorization header are generated from `withHeaders` and `withBasicAuth` methods respectively. The request URL consists of the base URL defined above and the endpoint `/sessions/sms`. The method `withBasicAuth` from the `Zttp` package takes credentials and generates the required Basic Auth header (for more information on Basic Auth see our [code example](https://github.com/sipgate-io/sipgateio-basicauth-java)).
 
-> If OAuth should be used for `Authorization` instead of Basic Auth we do not use the `withBasicAuth(username, password)` method. Instead we set the authorization header to `Bearer` followed by a space and the access token: `Zttp::withHeaders(["Authorization" => "Bearer " . accessToken])`. For an example application interacting with the sipgate API using OAuth see our [sipgate.io Java Oauth example](https://github.com/sipgate-io/sipgateio-oauth-java).
+> If OAuth should be used for `Authorization` instead of Basic Auth we do not use the `withBasicAuth(tokenId, token)` method. Instead we set the authorization header to `Bearer` followed by a space and the access token: `Zttp::withHeaders(["Authorization" => "Bearer " . accessToken])`. For an example application interacting with the sipgate API using OAuth see our [sipgate.io Java Oauth example](https://github.com/sipgate-io/sipgateio-oauth-java).
 
 #### Send SMS with custom sender number
 
@@ -123,10 +123,11 @@ You can use the sipgate api to find out what your extension is. For example:
 
 ```bash
 curl \
---user username:password \
+--user tokenId:token \
 https://api.sipgate.com/v2/{userId}/sms
 ```
-Replace `username` and `password` with your sipgate credentials and `userId` with your sipgate user id.
+
+Replace `tokenId` and `token` with your sipgate credentials and `userId` with your sipgate user id.
 
 The user id consists of the letter 'w' followed by a number (e.g. 'w0'). It can be found as follows:
 
@@ -148,7 +149,7 @@ Possible reasons are:
 | reason                                                                                                                                              | errorcode |
 | --------------------------------------------------------------------------------------------------------------------------------------------------- | :-------: |
 | bad request (e.g. request body fields are empty or only contain spaces, timestamp is invalid etc.)                                                  |    400    |
-| username and/or password are wrong                                                                                                                  |    401    |
+| tokenId and/or token are wrong                                                                                                                      |    401    |
 | insufficient account balance                                                                                                                        |    402    |
 | no permission to use specified SMS extension (e.g. SMS feature not booked, user password must be reset in [web app](https://app.sipgate.com/login)) |    403    |
 | wrong REST API endpoint                                                                                                                             |    404    |
