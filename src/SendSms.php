@@ -4,13 +4,16 @@ use Sipgate\Io\Example\SendSms\SipgateClient;
 
 require_once __DIR__."/../vendor/autoload.php";
 
-$tokenId = "YOUR_SIPGATE_TOKEN_ID";
-$token = "YOUR_SIPGATE_TOKEN";
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__."/..");
+$dotenv->load();
 
-$smsId = "YOUR_SIPGATE_SMS_EXTENSION";
+$tokenId = $_ENV['TOKEN_ID'];
+$token = $_ENV['TOKEN'];
+
+$smsId = $_ENV['SMS_ID'];
 
 $message = "YOUR_MESSAGE";
-$recipient = "RECIPIENT_PHONE_NUMBER";
+$recipient = $_ENV['RECIPIENT'];
 
 $client = new SipgateClient($tokenId, $token);
 

@@ -21,20 +21,11 @@ Install dependencies manually or use your IDE's import functionality:
 $ composer install
 ```
 
-In order to run the code you have to set the following variables in [SendSms.php](./src/SendSms.php):
+Create the `.env` by copying the [`.env.example`](.env.example) and set the values according to the comment above each variable.
 
-```php
-$tokenId = "YOUR_SIPGATE_TOKEN_ID";
-$token = "YOUR_SIPGATE_TOKEN";
-
-$smsId = "YOUR_SIPGATE_SMS_EXTENSION";
-
-$message = "YOUR_MESSAGE";
-$recipient = "RECIPIENT_PHONE_NUMBER";
-```
 The token should have the `sessions:sms:write` scope. For more information about personal access tokens visit https://www.sipgate.io/rest-api/authentication#personalAccessToken.
 
-The `smsId` uniquely identifies the extension from which you wish to send your message. Further explanation is given in the section [Web SMS Extensions](#web-sms-extensions).
+The `SMS_ID` uniquely identifies the extension from which you wish to send your message. Further explanation is given in the section [Web SMS Extensions](#web-sms-extensions).
 
 > **Optional:**
 > In order to send a delayed message uncomment the following line in [SendSms.php](./src/SendSms.php) and set the desired date and time in the future (up to one month):
